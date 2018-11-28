@@ -32,10 +32,25 @@ public class EmployeesResource {
         return ResponseEntity.ok(employees);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Employee>> getEmployeesByQuery(@RequestParam(value = "page",defaultValue ="0",required = false) int page,
+                                      @RequestParam(value="pageSize",defaultValue = "5" ,required = false) int pageSize,
+                                      @RequestParam(value="gender",defaultValue = "Male",required = false) String gender) {
+
+
+
+        List<Employee> employees = employeeService.getEmployeesByQuery( page, pageSize, gender);
+
+        return ResponseEntity.ok(employees);
+
+    }
+
     @PostMapping(produces = {"application/json"})
     public void addEmployee(@RequestBody Employee employee) {
         employeeService.addEmployee(employee);
     }
+
+
     @DeleteMapping(value = "/{id}",produces = {"application/json"})
     public void deleteEmployee(@PathVariable Long id) {
         employeeService.deleteEmployeeById(id);

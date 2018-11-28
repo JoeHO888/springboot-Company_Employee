@@ -11,6 +11,14 @@ import java.util.stream.Stream;
 @Service
 public class EmployeeService {
 
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
     private List<Employee> employees= new ArrayList();
     private int id = 0;
 
@@ -71,4 +79,11 @@ public class EmployeeService {
     }
 
 
+    public List<Employee> getEmployeesByQuery(int page,int pageSize,String gender) {
+        List<Employee> employeesSelected;
+        if (gender == null){employeesSelected = this.employees.stream().filter(e -> e.getGender() == gender).collect(Collectors.toList()).subList(page, page+pageSize);}
+        else{employeesSelected = this.employees.stream().filter(e -> e.getGender() == gender).collect(Collectors.toList()).subList(page, page+pageSize);}
+        return employeesSelected;
+
+    }
 }
